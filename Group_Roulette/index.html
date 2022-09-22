@@ -23,34 +23,19 @@
         <button class="btn-go">GO</button>
         <script>
             const center = document.querySelector(".list-item");
-            // const items = document.querySelectorAll(".list-item li");
             const gobtn = document.querySelector(".btn-go");
-            // const angle = 360 / items.length;
-            // let currAngle = 0;
-
-            // document.addEventListener("click", function (event) {
-            //     if (window.innerWidth / 2 < event.clientX) {
-            //         currAngle += angle;
-            //     } else {
-            //         currAngle -= angle;
-            //     }
-            //     center.style.transition = `0.5s`;
-            //     center.style.transform = `translate(-50%, -50%) rotateY(${currAngle}deg)`;
-            // });
 
             let currSec = 10;
             gobtn.onclick = () => {
                 center.style.animationDuration = `${currSec}s`;
-                if (currSec > 1) {
-                    center.style.animationPlayState = `running`;
-                    currSec = currSec - 3;
-                } else if (currSec > 0.5) {
-                    currSec = currSec - 0.3;
-                } else if (currSec > 0.1) {
-                    currSec = currSec - 0.1;
-                } else if (currSec <= 0.1) {
-                    center.style.animationPlayState = `paused`;
-                    currSec = 10;
+                if (currSec == 10) {
+                    center.classList.toggle("on");
+                }
+                if (currSec > 0.1) {
+                    currSec = currSec / 2;
+                } else {
+                    center.classList.remove("on");
+                    gobtn.
                 }
             };
         </script>
