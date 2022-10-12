@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>인생 쉽지 않다</title>
+        <style>
+            .hide {
+                display: none;
+            }
+            .app {
+                background: antiquewhite;
+                position: absolute;
+                top: 50vh;
+                left: 50vw;
+                transform: translate(-50%, -50%);
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+            }
+            .ball {
+                background: dodgerblue;
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                border-radius: 50%;
+                color: white;
+                font-size: 48px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            @media (max-width: 768px) {
+                .app {
+                    flex-direction: column;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <article class="app">
+            <h2 class="hide">역전 해볼텨?</h2>
+            <div id="num1" class="ball">01</div>
+            <div id="num2" class="ball">05</div>
+            <div id="num3" class="ball">07</div>
+            <div id="num4" class="ball">09</div>
+            <div id="num5" class="ball">28</div>
+            <div id="num6" class="ball">30</div>
+            <div id="num7" class="ball">45</div>
+            <button onclick="getlotto()">눌렁</button>
+        </article>
+        <script>
+            console.log("쉽지 않다...");
+
+            const lotto = [num1, num2, num3, num4, num5, num6, num7];
+            function getlotto() {
+                for (i = 0; i <= 6; i++) {
+                    lotto[i] = document.getElementById(`${lotto[i]}`);
+                }
+                for (j = 0; j <= 6; j++) {
+                    lotto[j].innerText = Math.floor(Math.random() * 44 + 1);
+                }
+            }
+        </script>
+    </body>
+</html>
