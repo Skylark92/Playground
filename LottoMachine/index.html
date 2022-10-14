@@ -15,6 +15,9 @@
                 top: 50vh;
                 left: 50vw;
                 transform: translate(-50%, -50%);
+                text-align: center;
+            }
+            .container {
                 display: flex;
                 flex-direction: row;
                 gap: 5px;
@@ -30,37 +33,81 @@
                 font-weight: bold;
                 text-align: center;
             }
+            .button {
+                align-self: center;
+                background-color: #fff;
+                background-image: none;
+                background-position: 0 90%;
+                background-repeat: repeat no-repeat;
+                background-size: 4px 3px;
+                border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+                border-style: solid;
+                border-width: 2px;
+                box-shadow: rgba(0, 0, 0, 0.2) 15px 28px 25px -18px;
+                box-sizing: border-box;
+                color: #41403e;
+                cursor: pointer;
+                display: inline-block;
+                font-family: Neucha, sans-serif;
+                font-size: 1rem;
+                line-height: 23px;
+                outline: none;
+                padding: 0.75rem;
+                text-decoration: none;
+                transition: all 235ms ease-in-out;
+                border-bottom-left-radius: 15px 255px;
+                border-bottom-right-radius: 225px 15px;
+                border-top-left-radius: 255px 15px;
+                border-top-right-radius: 15px 225px;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                font-weight: bold;
+            }
 
-            @media (max-width: 768px) {
-                .app {
-                    flex-direction: column;
-                }
+            .button-55:hover {
+                box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px -5px;
+                transform: translate3d(0, 2px, 0);
+            }
+
+            .button-55:focus {
+                box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 4px -6px;
             }
         </style>
     </head>
     <body>
         <article class="app">
-            <h2 class="hide">역전 해볼텨?</h2>
-            <div id="num1" class="ball">01</div>
-            <div id="num2" class="ball">05</div>
-            <div id="num3" class="ball">07</div>
-            <div id="num4" class="ball">09</div>
-            <div id="num5" class="ball">28</div>
-            <div id="num6" class="ball">30</div>
-            <div id="num7" class="ball">45</div>
-            <button onclick="getlotto()">눌렁</button>
+            <div class="container">
+                <h2 class="hide">역전 해볼텨?</h2>
+            </div>
+            <button class="button" type="button" onclick="getLotto('6')">C`est La vie</button>
         </article>
-        <script>
-            console.log("쉽지 않다...");
 
-            const lotto = [num1, num2, num3, num4, num5, num6, num7];
-            function getlotto() {
-                for (i = 0; i <= 6; i++) {
-                    lotto[i] = document.getElementById(`${lotto[i]}`);
+        <script>
+            console.log("쉽지 않다... 인생");
+
+            const container = document.querySelector(".container");
+
+            const 번호 = [];
+
+            function getLotto(count) {
+                let 추첨 = 0;
+                for (i = 0; i < count; i++) {
+                    추첨 = Math.floor(Math.random() * 45 + 1);
+                    if (번호.includes(추첨)) {
+                        i--;
+                        continue;
+                    } else {
+                        번호.push(추첨);
+                    }
                 }
-                for (j = 0; j <= 6; j++) {
-                    lotto[j].innerText = Math.floor(Math.random() * 44 + 1);
+                let 공 = [];
+                for (const ball of 번호) {
+                    공.push(`<div class="ball">${ball}</div>`);
                 }
+
+                container.innerHTML = 공.join("");
+                번호.splice(0);
             }
         </script>
     </body>
