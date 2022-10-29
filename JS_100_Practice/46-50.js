@@ -108,3 +108,4 @@ const items = prompt("입력해주세요.")
 console.log(bubble(items));
 
 // 어떻게 했지.. 그냥 sort 쓰면 안 될까..
+// 입력값을 배열로 받았어야 했나
