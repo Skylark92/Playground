@@ -15,9 +15,13 @@ const nationWidth = {
 // England 22023
 
 // 답
-const 나라 = Object.keys(nationWidth);
-const 면적 = Object.values(nationWidth);
-const 한국면적 = nationWidth[korea];
+const [나라, 면적] = [Object.keys(nationWidth), Object.values(nationWidth)];
+const [한국, 한국면적] = [나라.shift(), 면적.shift()];
+
+const 거리 = 면적.map((element) => Math.abs(한국면적 - element));
+
+console.log(나라[거리.indexOf(Math.min(...거리))], Math.min(...거리));
+// 뭔가.. 뭔가 매우 이상함
 
 /* 문제57 : 1의 개수 */
 
