@@ -29,10 +29,10 @@ function rotate(inL, inN) {
 
     let index = 차이.indexOf(Math.min(...차이));
 
-    return `
+    return console.log(`
     index : ${index}
     value : ${inL[index]}, ${순회후[index]}
-    `;
+    `);
 }
 
-console.log(rotate(l, n));
+rotate(l, n);

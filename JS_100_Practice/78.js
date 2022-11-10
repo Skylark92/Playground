@@ -26,10 +26,11 @@ const 접시 = new Array(음식).fill().map((_, i) => 1 + i);
 console.log(접시);
 
 let index = 0;
+[1, 2, 3, 4, 5, 6];
 
 while (접시.length > 2) {
     if (index > 접시.length - 1) index -= 접시.length;
-    console.log(접시.splice(index, 1));
+    접시.splice(index, 1);
     index += 시작 - 1;
 }
 
