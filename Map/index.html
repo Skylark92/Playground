@@ -9,12 +9,49 @@
     <style>
         #app {
             display: flex;
+            justify-content: center;
+        }
+
+        .ani {
+            position: relative;
+        }
+
+        .cover {
+            width: 400px;
+            height: 500px;
+            position: absolute;
+            background: pink;
+            z-index: 100;
+            transform-style: preserve-3d;
+            transform-origin: left;
+            /* backface-visibility: hidden; */
+        }
+
+        .back {
+            width: 400px;
+            height: 500px;
+            position: absolute;
+            transform-style: preserve-3d;
+            transform-origin: left;
+            backface-visibility: hidden;
+            z-index: 120;
+            background: antiquewhite;
+        }
+
+        .on {
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            transform-origin: left;
+            transform: perspective(2000px) rotateY(-135deg);
+            transition: 1s;
+
         }
 
         #map {
-            background: hotpink;
             width: 400px;
             height: 500px;
+            z-index: 10;
         }
 
         .index-wrapper {
@@ -24,7 +61,7 @@
         }
 
         .index-wrapper button {
-            width: 50px;
+            width: 70px;
             height: 30px;
         }
     </style>
@@ -36,14 +73,19 @@
     <h1>흠...</h1>
 
     <main id="app">
-        <div id="map"></div>
+        <div>
+            <div class="ani">
+                <div class="cover"></div>
+                <div class="back"></div>
+            </div>
+            <div id="map"></div>
+        </div>
+
+
         <div class="index-wrapper">
-            <button id="0" type="button"></button>
-            <button id="1" type="button"></button>
-            <button id="2" type="button"></button>
-            <button id="3" type="button"></button>
-            <button id="4" type="button"></button>
-            <button id="5" type="button"></button>
+            <button class="btn" id="0" type="button">1일차</button>
+            <button class="btn" id="1" type="button">2일차</button>
+            <button class="btn" id="2" type="button">3일차</button>
         </div>
     </main>
 
@@ -53,18 +95,129 @@
                 center: { lat: 1.2826500, lng: 103.8584167 },
                 zoom: 12,
             });
+
+            // 마커 집합
+            const markersArray = [];
+            const 원 = [];
+
+            // 지우기
+            function clearOverlays() {
+                for (var i = 0; i < markersArray.length; i++) {
+                    markersArray[i].setMap(null);
+                    원[i].setMap(null);
+                }
+                markersArray.length = 0;
+                원.length = 0;
+            }
+
+            // 표시하기
+            function setMapOnAll(map) {
+                for (let i = 0; i < markersArray.length; i++) {
+                    markersArray[i].setMap(map);
+                }
+            }
+
+            const button = document.querySelectorAll('.btn');
+
+            const info = new google.maps.InfoWindow();
+
+            const cover = document.querySelector('.cover');
+            const back = document.querySelector('.back');
+
+            button.forEach((el, index) => {
+                el.addEventListener('click', (event) => {
+                    cover.classList.add('on');
+                    back.classList.add('on');
+
+                    clearOverlays()
+
+                    day[index].forEach((el, i) => {
+                        const marker = new google.maps.Marker(el);
+                        const circle = new google.maps.Circle({
+                            strokeColor: "pink",
+                            strokeOpacity: 0.75,
+                            strokeWeight: 2,
+                            fillColor: "hotpink",
+                            fillOpacity: 0.35,
+                            map,
+                            center: el.position,
+                            radius: 500,
+                        })
+
+                        marker.addListener('click', () => {
+                            info.setContent(정보[index][i]);
+                            info.open({
+                                anchor: marker,
+                                map,
+                            })
+                        })
+                        markersArray.push(marker)
+                        원.push(circle);
+                    })
+
+                    setMapOnAll(map)
+                })
+            })
+
         }
-
-        const bounds = new google.maps.LatLngBounds();
-
-        const marker = new google.maps.Marker({
+        /* 데이터 */
+        const day = [[{
             position: { lat: 1.2826500, lng: 103.8584167 },
-            map: map
-        })
+            map,
+            title: "마리나 베이 샌즈 호텔",
+        }, {
+            position: { lat: 1.2846419, lng: 103.8518519 },
+            map,
+            title: "몬티",
+        }, {
+            position: { lat: 1.29480652, lng: 103.85445631 },
+            map,
+            title: "래플즈 호텔"
+        }, {
+            position: { lat: 1.2805179, lng: 103.8407971 },
+            map,
+            title: "차이나 타운"
+        }], [{
+            position: { lat: 1.24896415, lng: 103.8275556 },
+            map,
+            title: "센토사 섬"
+        }, {
+            position: { lat: 1.25416735, lng: 103.82304465 },
+            map,
+            title: "유니버셜 스튜디오"
+        }, {
+            position: { lat: 1.2577203, lng: 103.8157498 },
+            map,
+            title: "어드벤처 코브 워터파크 싱가포르"
+        }], [{
+            position: { lat: 1.2906024, lng: 103.8464742 },
+            map,
+            title: "클라크 퀘이"
+        }, {
+            position: { lat: 1.3048259, lng: 103.8300097 },
+            map,
+            title: "오차드 쇼핑 거리",
+        }, {
+            position: { lat: 1.2842047, lng: 103.8415296 },
+            map,
+            title: "동방 미식",
+        }]]
 
-
-        bounds.extend(marker.position);
-        map.fitBounds(bounds);
+        // 정보 모음
+        const 정보 = [[`<h3 style="color: yellowgreen">마리나 베이 샌즈 호텔</h3>
+        <p style="font-weight: bold">하이룽</p>`, `<h3 style="color: yellowgreen">몬티</h3>
+        <p style="font-weight: bold">몬티지롱</p>`, `<h3 style="color: yellowgreen">래플즈 호텔</h3>
+        <p style="font-weight: bold">싱가포르</p>`, `<h3 style="color: yellowgreen">차이나 타운</h3>
+        <p style="font-weight: bold">차이룽</p>`], [
+            `<h3 style="color: yellowgreen">센토사 섬</h3>
+        <p style="font-weight: bold">섬 왔어용</p>`, `<h3 style="color: yellowgreen">유니버셜 스튜디오</h3>
+        <p style="font-weight: bold">자이로드롭 개시러</p>`, `<h3 style="color: yellowgreen">어드벤처 코브 워터파크 싱가포르</h3>
+        <p style="font-weight: bold">룰루랄라</p>`], [
+            `<h3 style="color: yellowgreen">클라크 퀘이</h3>
+        <p style="font-weight: bold">퀘이룽</p>`, `<h3 style="color: yellowgreen">오차드 쇼핑 거리</h3>
+        <p style="font-weight: bold">플렉스할꼬야</p>`, `<h3 style="color: yellowgreen">동방 미식</h3>
+        <p style="font-weight: bold">마이쩡</p>`
+        ]]
 
     </script>
 </body>
