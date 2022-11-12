@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유정이와 지도 만들기</title>
+    <style>
+        #app {
+            display: flex;
+        }
+
+        #map {
+            background: hotpink;
+            width: 400px;
+            height: 500px;
+        }
+
+        .index-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .index-wrapper button {
+            width: 50px;
+            height: 30px;
+        }
+    </style>
+    <script defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpqOdD1eW6j2cxEhydYO29EcwZVl5gCR4&callback=initMap"></script>
+</head>
+
+<body>
+    <h1>흠...</h1>
+
+    <main id="app">
+        <div id="map"></div>
+        <div class="index-wrapper">
+            <button id="0" type="button"></button>
+            <button id="1" type="button"></button>
+            <button id="2" type="button"></button>
+            <button id="3" type="button"></button>
+            <button id="4" type="button"></button>
+            <button id="5" type="button"></button>
+        </div>
+    </main>
+
+    <script>
+        window.initMap = () => {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 1.2826500, lng: 103.8584167 },
+                zoom: 12,
+            });
+        }
+
+        const bounds = new google.maps.LatLngBounds();
+
+        const marker = new google.maps.Marker({
+            position: { lat: 1.2826500, lng: 103.8584167 },
+            map: map
+        })
+
+
+        bounds.extend(marker.position);
+        map.fitBounds(bounds);
+
+    </script>
+</body>
+
+</html>
