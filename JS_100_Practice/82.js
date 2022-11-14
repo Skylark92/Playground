@@ -13,13 +13,17 @@
 // False
 
 // 답
+
 function math(e) {
-    //코드를 작성해주세요
-    match(/[^\d\+-\*\/\(\)]/g);
+    try {
+        console.log(!!eval(e));
+    } catch (error) {
+        console.log(false);
+    }
 }
 
-let ex = "5 + 7) * (3 * 5)";
-console.log(math(ex));
+// let ex = "5 + 7) * (3 * 5)";
+// console.log(math(ex));
 
 // while (1){
 //     let order = prompt('데이터 입력(1), 프로그램 종료(2)');
@@ -30,3 +34,8 @@ console.log(math(ex));
 //         break;
 //     }
 // }
+
+/**
+ * 53번 문제랑 다를 게 있는지,
+ * eval은 사용을 피하라고 권장함
+ */
