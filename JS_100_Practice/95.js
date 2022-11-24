@@ -61,7 +61,7 @@ function 찍기(도장, k) {
     return 앞도장;
 }
 
-console.log(찍기(도장, 2));
+console.log(찍기(도장, 3));
 
 // let test = 도장.map((행, i) => {
 //     return 행.map((숫자, j) => {
