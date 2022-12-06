@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to make Search</title>
+</head>
+
+<body>
+  <h1>다른 페이지는 어떻게 검색할까?</h1>
+  <form action="#">
+    <label for="inp_search"></label>
+    <input id="inp_search" type="text">
+    <button type="button">입력</button>
+  </form>
+
+  <script>
+
+    const btn = document.querySelector("button")
+    btn.addEventListener('click', function () {
+      fetch('./lorem.html')
+        .then(function (response) {
+          response.text().then(function (html) {
+            const lorem = new DOMParser().parseFromString(html, 'text/html');
+
+            console.log(lorem)
+          })
+        });
+    });
+
+    // async function loadData() {
+    //   console.log("done")
+    //   fetch("./lorem.html")
+    //     .then((response) => {
+    //       console.log(response)
+    //       console.log(response.text())
+    //     })
+    // }
+    // loadData()
+  </script>
+</body>
+
+</html>
