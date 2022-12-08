@@ -6,6 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How to make Search</title>
+  <style>
+    .box {
+      background: dodgerblue;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
 </head>
 
 <body>
@@ -16,19 +23,65 @@
     <button type="button">입력</button>
   </form>
 
+  <main>
+    <div class="box">
+      나 DIV
+    </div>
+  </main>
+
   <script>
 
-    const btn = document.querySelector("button")
-    btn.addEventListener('click', function () {
-      fetch('./lorem.html')
-        .then(function (response) {
-          response.text().then(function (html) {
-            const lorem = new DOMParser().parseFromString(html, 'text/html');
+    async function searchData(input) {
+      const response = await fetch("data.json")
 
-            console.log(lorem)
-          })
-        });
-    });
+      const data = await response.json();
+
+      const result = await data.filter(_ => (_.제목.indexOf(input)) + 1 || (_.내용.indexOf(input)) + 1)
+
+      console.log("result", result)
+
+      result.forEach(_ => {
+        searchResult(_.제목, _.내용)
+      })
+    }
+
+    function searchViewer() {
+      const typingWord = document.querySelector("#inp_search").value;
+
+      const main = document.querySelector("main")
+      main.innerText = '';
+      searchData(typingWord)
+    }
+
+    function searchResult(제목, 내용) {
+      const a = document.createElement("a");
+      const heading = document.createElement("h3")
+      const p = document.createElement("p")
+      const main = document.querySelector("main")
+
+      heading.textContent = 제목;
+      p.textContent = 내용;
+      a.appendChild(heading)
+      a.appendChild(p)
+
+      main.appendChild(a);
+    }
+
+    const button = document.querySelector("button")
+
+    button.addEventListener("click", searchViewer);
+
+    // const btn = document.querySelector("button")
+    // btn.addEventListener('click', function () {
+    //   fetch('./lorem.html')
+    //     .then(function (response) {
+    //       response.text().then(function (html) {
+    //         const lorem = new DOMParser().parseFromString(html, 'text/html');
+
+    //         console.log(lorem)
+    //       })
+    //     });
+    // });
 
     // async function loadData() {
     //   console.log("done")
