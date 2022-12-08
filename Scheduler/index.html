@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheduler</title>
+  <style>
+    :root {
+      font-size: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .sr-only {
+      width: 0;
+      height: 0;
+      position: absolute;
+      font-size: 0;
+      clip-path: circle(50%);
+    }
+
+    .app-todo {
+      background: #3CB371;
+      width: 80vw;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .input-todo {
+      width: 100%;
+      height: 3rem;
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .button-todo {
+      display: block;
+      margin-left: auto;
+    }
+
+    .list-todo {
+      background: white;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    .item-todo {
+      background: tan;
+      font-size: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="sr-only">나의 계획 관리</h1>
+
+  <section class="app-todo">
+    <h2 class="sr-only">할 일 목록</h2>
+    <input type="text" class="input-todo">
+    <button class="button-todo">></button>
+    <ul class="list-todo">
+      <li class="item-todo">리스트</li>
+      <li class="item-todo">리스트</li>
+      <li class="item-todo">리스트</li>
+    </ul>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
