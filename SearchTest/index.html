@@ -36,11 +36,14 @@
 
       const data = await response.json();
 
-      const result = await data.filter(_ => (_.제목.indexOf(input)) + 1 || (_.내용.indexOf(input)) + 1)
+      console.log(input.toLowerCase())
+      const result = await data.filter(_ => _.제목.toLowerCase().indexOf(input.toLowerCase()) + 1 || _.내용.toLowerCase().indexOf(input.toLowerCase()) + 1)
 
       console.log("result", result)
 
-      result.forEach(_ => {
+      if (result.length === 0) searchResult("찾는 결과가 없습니다.")
+
+      else result.forEach(_ => {
         searchResult(_.제목, _.내용)
       })
     }
@@ -48,23 +51,23 @@
     function searchViewer() {
       const typingWord = document.querySelector("#inp_search").value;
 
+      if (!typingWord) return;
+
       const main = document.querySelector("main")
       main.innerText = '';
+
       searchData(typingWord)
     }
 
     function searchResult(제목, 내용) {
-      const a = document.createElement("a");
-      const heading = document.createElement("h3")
-      const p = document.createElement("p")
       const main = document.querySelector("main")
 
-      heading.textContent = 제목;
-      p.textContent = 내용;
-      a.appendChild(heading)
-      a.appendChild(p)
+      const content = `<a>
+          <h3>${제목}</h3>
+          <p>${내용 || ''}</p>
+        </a>`
 
-      main.appendChild(a);
+      main.innerHTML += content;
     }
 
     const button = document.querySelector("button")
